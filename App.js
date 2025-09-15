@@ -12,21 +12,21 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [chatHistory, setChatHistory] = useState([]);
-  const [apiHealth, setApiHealth] = useState(true); // FORCE ONLINE FOR DEMO
+  const [apiHealth, setApiHealth] = useState(true);
 
-  // DEMO MODE - Always show API as online
+  
   useEffect(() => {
     setApiHealth(true);
     console.log('✅ Demo mode - API shown as online');
   }, []);
 
   const checkApiHealth = async () => {
-    // FORCE ONLINE FOR DEMO
+    
     setApiHealth(true);
     console.log('✅ API health check - demo mode active');
   };
 
-  // Mock API responses for demo
+
   const getMockResults = (query) => {
     return {
       queryId: `demo_${Date.now()}`,
@@ -90,7 +90,7 @@ ORDER BY total_sales DESC;`,
     setError(null);
     setCurrentView('results');
 
-    // Add to history  
+    
     const historyItem = {
       id: Date.now().toString(),
       query: query,
@@ -102,7 +102,7 @@ ORDER BY total_sales DESC;`,
     try {
       console.log('🚀 Processing query:', query);
       
-      // Try real API first, fallback to mock
+     
       let results;
       try {
         const processResponse = await apiService.processQuery(query);
@@ -130,14 +130,14 @@ ORDER BY total_sales DESC;`,
         }
       } catch (apiError) {
         console.log('📋 API failed, using demo data:', apiError.message);
-        // Use mock data for demo
+        
         results = getMockResults(query);
-        await new Promise(resolve => setTimeout(resolve, 2000)); // Simulate processing time
+        await new Promise(resolve => setTimeout(resolve, 2000)); 
       }
 
       setQueryResults(results);
       
-      // Update history
+      
       setChatHistory(prev => 
         prev.map(item => 
           item.id === historyItem.id 
